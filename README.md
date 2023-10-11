@@ -1,6 +1,7 @@
 # Contador de 0 a 99 con Display 7 Segmentos y Multiplexacion
 
-![contador0A99](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/8e1d2deb-201f-46a5-8f90-cd2a31c4e5cd)
+
+![Captura](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/23bf2676-ac2c-4350-8398-9b714a5ac31a)
 
 
 # Integrante
@@ -9,6 +10,7 @@
 
 ## Descripción
 La funcion de este proyecto es la de un contador digital de 0 a 99, con dos display de 7 segmentos controlados por multiplexacion. Se utilizan 3 botones/pulsadores para controlar los números que se muestran en los displays. Con el primer boton se incrementa en uno los números (por cada presionado al boton) y con el segundo lo mismo pero decrementa los dígitos. Luego hay un tercer boton que su función es la de resetear los displays a cero, sin importar en que numero estaba ubicado.
+El último agregado es el componente switch, con el cual controlo si se van a mostrar los números primos o el contador.
 
 ## Función principal
 
@@ -20,7 +22,15 @@ void loop()
   //incrementandola, decrementandola o reseteando la variable.
   incrementar_numeros();
   decrementar_numeros();
-  resetear_display();
+
+  //Manejo el funcionamiento de lo que muestran los displays
+  //con el estado que recibe la entrada del switch.
+  //si es HIGH muestro los numeros primos sino el contador.
+  if (digitalRead(switchh) == HIGH){
+    calcular_primo(cuenta);//funcion que calculo los números primos del 0 al 99
+  }else{
+    cuenta = cuenta;
+  }
   
   //Con el número de la variable incrementada o decrementada,
   //realizo una cuenta para sacar la unidad del número de la 
