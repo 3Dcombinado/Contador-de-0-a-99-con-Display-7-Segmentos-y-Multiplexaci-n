@@ -53,4 +53,4 @@ void loop()
 ~~~
 
 ## :warning: Link al proyecto
-- [proyecto](https://www.tinkercad.com/things/0SVh8mW4Zjm-contador-de-0-a-99-con-display-7-segmentos-y-multiplexacion/editel?sharecode=niWuMdXmHFZatJbscutm-X0j1dP26iuFYto8ctSO4mA)
+- [proyecto](https://www.tinkercad.com/things/dY4WhQ7JCwu-contador-de-0-a-99-con-display-7-segmentos-y-multiplexacion/editel?sharecode=UpPW-t2oktDQQsi74xRbyHPi4dNSa17naK7jZpLaioo)
