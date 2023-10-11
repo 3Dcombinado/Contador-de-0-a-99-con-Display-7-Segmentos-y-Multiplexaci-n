@@ -11,14 +11,18 @@
 #define display_numero_dos 9 //Defino el pin para controlar los displays.
 #define boton_incrementar A0
 #define boton_decrementar A1
-#define boton_resetear A2 //Hasta acá defino los botones y sus pines.
-
-
+#define switchh A2 //Hasta acá defino los botones y sus pines.
+#define SENSOR A3
 int tiempo_control;
 int cuenta;
 int unidades;
 int decenas;
-
+bool estado;
+int numero;
+int primo;
+int subo_o_bajo;
+int contador;
+int temperatura;
 void setup()
 {
   pinMode(A, OUTPUT);
@@ -32,7 +36,7 @@ void setup()
   pinMode(display_numero_dos, OUTPUT);
   pinMode(boton_incrementar, INPUT_PULLUP);
   pinMode(boton_decrementar, INPUT_PULLUP);
-  pinMode(boton_resetear, INPUT_PULLUP);
+  pinMode(switchh, INPUT);
   tiempo_control = 5;
   cuenta = 0;
   
@@ -40,32 +44,143 @@ void setup()
 
 void loop()
 {
-  //Utilizo tres funciones para los botones y su funcionalidad
-  //depende de lo que se requiera. Se maneja con una variable
-  //incrementandola, decrementandola o reseteando la variable.
-
+ 
   incrementar_numeros();
   decrementar_numeros();
-  resetear_display();
+  if (digitalRead(switchh) == HIGH){
+    calcular_primo(cuenta);
+  }else{
+    cuenta = cuenta;
+  }
+ 
   
-  //Con el número de la variable incrementada o decrementada,
-  //realizo una cuenta para sacar la unidad del número de la 
-  //variable y otra para sacar la decena.
   unidades = cuenta % 10;
-  decenas = cuenta / 10;
+  decenas = cuenta / 10; 
   
-  apagar_numero(); //Tengo que apagar el display un instante 
-  //para que no se vea el número fantasma.
+  apagar_numero(); 
   
-  encender_display_unidades();//Utilizo esta funcion para mostrar
-  //en el display de la dereccha las unidades.
+  encender_display_unidades();
   
-  apagar_numero();//Apago el display un instante.
+  apagar_numero();
   
-  encender_display_decena();//Utilizo esta funcion para mostrar
-  //en el display de la izquierda las decenas.
+  encender_display_decena();
+}
+
+
+
+  
+////////////////////// MANEJO DE BOTONES //////////////////////////////////////
+
+void incrementar_numeros()
+{
+  //Incrementa el valor de la variable cada vez que presiono
+  //el boton incrementador. Si la cuenta da mayor a 99, reinicio
+  //la variable a cero.
+  if (digitalRead(boton_incrementar) == LOW){
+    subo_o_bajo = 1;
+  	cuenta = cuenta + 1;
+    if (cuenta > 99){
+      cuenta = 0;
+    }
+    delay(200);//Espero para generar un antirebote.
+  }
+}
+
+void decrementar_numeros()
+{
+  //Decrementa el valor de la variable cada vez que presiono
+  //el boton decrementador. Si la cuenta da menor a 0, coloco
+  //la variable a 99.
+  if (digitalRead(boton_decrementar) == LOW){
+    subo_o_bajo = 0;
+  	cuenta = cuenta - 1;
+    if (cuenta < 0){
+      cuenta = 99;
+    }
+    delay(200);//Espero para generar un antirebote.
+  }
+}
+    
+
+
+
+//////////////////// MANEJO DE DISPLAYS /////////////////////////////////////
+
+void encender_display_decena()
+{
+  //Una vez calculada la decena, enciendo el display de la 
+  //izquierda y apago el de la derecha, por un tiempo muy chiquito
+  //y muestro el numero.
+  digitalWrite(display_numero_uno, LOW);
+  digitalWrite(display_numero_dos, HIGH);
+  formar_unidades_decenas(decenas);
+  delay(tiempo_control);//controla la multiplexación 
+}
+
+void encender_display_unidades()
+{
+  //Una vez calculada la unidad, enciendo el display de la 
+  //derecha y apago el de la izquierda, por un tiempo muy chiquito
+  //y muestro el numero.
+  digitalWrite(display_numero_uno, HIGH);
+  digitalWrite(display_numero_dos, LOW);
+  formar_unidades_decenas(unidades);
+  delay(tiempo_control);//controla la multiplexación
+}
+
+
+
+//////////////////// CALCULO DE NUMEROS PRIMOS //////////////////////////////
+void calcular_primo(int numero)
+{
+  
+  //da un true si es primo y un false si es no primo
+  contador = 0;
+  for (int i = 1; i <= numero; ++i){
+  	if (numero % i == 0){
+    	contador += 1;
+    }
+  }
+    
+  if (contador > 2){//Si no es un primo incremento en el numero hasta encontrar
+    // un numero primo y despues mostrarlo.
+    estado = false;
+    //La variable subo_o_bajo es para saber que boton se presionó y si tiene
+    //que buscar un numero primo para arriba o para abajo. por eso hay dos while,
+    if (subo_o_bajo == 1){
+      while (estado == false){
+          numero += 1;
+          calcular_primo(numero);
+      }
+    }else{
+      while (estado == false){
+          numero -= 1;
+          calcular_primo(numero);
+      }
+    }
+  }else{//Si es true igualo a cuenta al numero primo calculado
+    // para que lo muestre en el void principal.
+    estado = true;
+    cuenta = numero;
+  }
   
 }
+
+//////////////////// CALCULO DE TEMPERATURA ////////////////////////
+
+void conversion_valores_grados()
+{
+  //Leo el sensor y convierto el valor analogico a centigrados
+  //con la funcion map.
+	temperatura = analogRead(SENSOR);
+  	temperatura = map(temperatura, 20,358,-40,125);
+}
+
+
+
+
+
+////////////////////// FORMACION DE NUMEROS ///////////////////////////////
 
 void formar_unidades_decenas(int numero)
 {
@@ -98,7 +213,11 @@ void formar_unidades_decenas(int numero)
 
 }
 
+
+
+
   
+
 void apagar_numero()
 {
   //Apago todos los segmentos del display. 
@@ -111,64 +230,6 @@ void apagar_numero()
   digitalWrite(G, LOW); 
 }
 
-void incrementar_numeros()
-{
-  //Incrementa el valor de la variable cada vez que presiono
-  //el boton incrementador. Si la cuenta da mayor a 99, reinicio
-  //la variable a cero.
-  if (digitalRead(boton_incrementar) == LOW){
-  	cuenta = cuenta + 1;
-    if (cuenta > 99){
-      cuenta = 0;
-    }
-    delay(200);//Espero para generar un antirebote.
-  }
-}
-
-void decrementar_numeros()
-{
-  //Decrementa el valor de la variable cada vez que presiono
-  //el boton decrementador. Si la cuenta da menor a 0, coloco
-  //la variable a 99.
-  if (digitalRead(boton_decrementar) == LOW){
-  	cuenta = cuenta - 1;
-    if (cuenta < 0){
-      cuenta = 99;
-    }
-    delay(200);//Espero para generar un antirebote.
-  }
-}
-
-
-void resetear_display()
-{
-  //Pone la variable en cero, en cualquier momento.
-  if (digitalRead(boton_resetear) == LOW){
-    cuenta = 0;
-  }
-}
-
-void encender_display_decena()
-{
-  //Una vez calculada la decena, enciendo el display de la 
-  //izquierda y apago el de la derecha, por un tiempo muy chiquito
-  //y muestro el numero.
-  digitalWrite(display_numero_uno, LOW);
-  digitalWrite(display_numero_dos, HIGH);
-  formar_unidades_decenas(decenas);
-  delay(tiempo_control);//controla la multiplexación 
-}
-
-void encender_display_unidades()
-{
-  //Una vez calculada la unidad, enciendo el display de la 
-  //derecha y apago el de la izquierda, por un tiempo muy chiquito
-  //y muestro el numero.
-  digitalWrite(display_numero_uno, HIGH);
-  digitalWrite(display_numero_dos, LOW);
-  formar_unidades_decenas(unidades);
-  delay(tiempo_control);//controla la multiplexación
-}
 
 //De acá hasta el final, hay 10 funciones las cuales realizan
 //una combinacion de prendido y apagado entre los segmentos
