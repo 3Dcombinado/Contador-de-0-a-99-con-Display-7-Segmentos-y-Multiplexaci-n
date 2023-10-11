@@ -1,6 +1,7 @@
 # Contador de 0 a 99 con Display 7 Segmentos y Multiplexacion
 
-![Captura](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/e6c980d8-bf0c-471b-8e04-edfdd201511e)
+
+![Captura](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/23bf2676-ac2c-4350-8398-9b714a5ac31a)
 
 
 # Integrante
