@@ -23,6 +23,13 @@ void loop()
   incrementar_numeros();
   decrementar_numeros();
 
+  //Esta funcion tiene la funcionalidad de medir la luz, si la luz es tan brillante parecido a la luz solar, los displays se apagan.
+  apagar_displays_luz();
+  //Parecida a la funcion anterior, esta funcion trabaja con temperatura, dependiendo si es muy alta o muy baja la temperatura
+  //en el display muestro solo un segmento encendido, dando a entender que la temperatura no es apta. 
+  alterar_display_segun_temperatura();
+
+
   //Manejo el funcionamiento de lo que muestran los displays
   //con el estado que recibe la entrada del switch.
   //si es HIGH muestro los numeros primos sino el contador.
@@ -51,6 +58,26 @@ void loop()
   
 }
 ~~~
+## MOTOR DE CORRIENT CONTINUA
+Un motor de corriente continua, es un dispositivo electromecánico que convierte la energía eléctrica de corriente continua en movimiento mecánico. Son simples de usar y tienen un control de velocidad muy preciso.
+-  ¿Qué es la corriente continua?
 
-## :warning: Link al proyecto
+Los electrones de una corriente continua se desplazan de un punto a otro de manera constante sin cambiar su polaridad.
+-  Partes de un motor CC
+
+Los motores de corriente continua constan de dos partes principales: el rotor y el estator.
+  ![image](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/702e40d3-c232-448e-98ba-90e28ce02529)
+
+El rotor es la parte giratoria del motor y generalmente contiene bobinas de alambre y el estator es la parte fija del motor el cual contiene bobinas de campo que generan un campo magnético constante.
+-  Funcionamiento
+
+Cuando se aplica una corriente continua al rotor, se crea un campo magnético que interactúa con el campo magnético del estator. Esta interacción de campos magnéticos genera un par de torsión en el rotor, lo que hace que el rotor gire y, por lo tanto, produce movimiento mecánico.
+	
+ Par de torsión: representa la cantidad de fuerza aplicada a un objeto en un intento de hacerlo rotar. Y se relaciona con la fuerza y la distancia desde el punto de aplicación de la fuerza al eje de giro.
+
+-  Agregar un motor al proyecto
+
+Se puede añadir un motor de corriente continua e indicar con los displays la velocidad a la que está girando, utilizando un pin con entrada analógica. Mientras mayor sea el número que se muestra en los displays más velocidad tendrá el giro del motor. Esto serviría para tener un control visual del movimiento del rotor del motor.
+
+## :octocat: Link al proyecto
 - [proyecto](https://www.tinkercad.com/things/dY4WhQ7JCwu-contador-de-0-a-99-con-display-7-segmentos-y-multiplexacion/editel?sharecode=UpPW-t2oktDQQsi74xRbyHPi4dNSa17naK7jZpLaioo)
