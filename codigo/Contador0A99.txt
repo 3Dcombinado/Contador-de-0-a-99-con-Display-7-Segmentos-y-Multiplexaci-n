@@ -13,6 +13,7 @@
 #define boton_decrementar A1
 #define switchh A2 //Hasta acá defino los botones y sus pines.
 #define SENSOR A3
+#define LDR A4
 int tiempo_control;
 int cuenta;
 int unidades;
@@ -23,6 +24,7 @@ int primo;
 int subo_o_bajo;
 int contador;
 int temperatura;
+int valor_ldr;
 void setup()
 {
   pinMode(A, OUTPUT);
@@ -47,12 +49,17 @@ void loop()
  
   incrementar_numeros();
   decrementar_numeros();
+  
+  apagar_displays_luz();
+  alterar_display_segun_temperatura();
+  
+  
   if (digitalRead(switchh) == HIGH){
     calcular_primo(cuenta);
   }else{
     cuenta = cuenta;
   }
- 
+  
   
   unidades = cuenta % 10;
   decenas = cuenta / 10; 
@@ -166,7 +173,7 @@ void calcular_primo(int numero)
   
 }
 
-//////////////////// CALCULO DE TEMPERATURA ////////////////////////
+//////////////////// MANEJO DEL SENSOR DE TEMPERATURA ////////////////////////
 
 void conversion_valores_grados()
 {
@@ -176,9 +183,46 @@ void conversion_valores_grados()
   	temperatura = map(temperatura, 20,358,-40,125);
 }
 
+void alterar_display_segun_temperatura()
+{
+  conversion_valores_grados();
+  while(temperatura < 0 or temperatura > 100){
+    formar_alerta();
+    conversion_valores_grados();
+    if (temperatura > 0 and temperatura < 100){
+     break; 
+    }
+  }
+    
+}
 
 
+////////////MANEJO DEL SENSOR LDR //////////////////
+void capturar_valor_ldr()
+{
+  //solo capturo el valor digital que me entrega el sensor
+  //en el pin analogico
+ valor_ldr = analogRead(LDR); 
+}
 
+void apagar_displays_luz()
+{
+  capturar_valor_ldr();//Llamo a la funcion para saber el valor
+  //de el pin analogico
+  //mientras el valor sea mayor a 960, significa que hay mucha luz
+  //entonces apago los displays.
+  while(valor_ldr > 960){
+    apagar_numero();
+    //dentro del while capturo de nuevo el valor del pin analogico
+    //para verificar si hubo un cambio
+    capturar_valor_ldr();
+    //si hubo cambio rompo el bucle y vuelvo a mostrar el contador
+    if (valor_ldr < 960){
+      break;
+    }
+  }
+    
+}
 
 ////////////////////// FORMACION DE NUMEROS ///////////////////////////////
 
@@ -230,6 +274,16 @@ void apagar_numero()
   digitalWrite(G, LOW); 
 }
 
+void formar_alerta()
+{
+  digitalWrite(A, LOW);
+  digitalWrite(B, LOW);
+  digitalWrite(C, LOW);
+  digitalWrite(D, LOW);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+}
 
 //De acá hasta el final, hay 10 funciones las cuales realizan
 //una combinacion de prendido y apagado entre los segmentos
