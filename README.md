@@ -1,7 +1,7 @@
 # Contador de 0 a 99 con Display 7 Segmentos y Multiplexacion
 
 
-![Captura](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/23bf2676-ac2c-4350-8398-9b714a5ac31a)
+![Proyecto](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/a2da503e-111d-4d3d-bc47-6ba1a7008d56)
 
 
 # Integrante
@@ -78,6 +78,39 @@ Cuando se aplica una corriente continua al rotor, se crea un campo magnético qu
 -  Agregar un motor al proyecto
 
 Se puede añadir un motor de corriente continua e indicar con los displays la velocidad a la que está girando, utilizando un pin con entrada analógica. Mientras mayor sea el número que se muestra en los displays más velocidad tendrá el giro del motor. Esto serviría para tener un control visual del movimiento del rotor del motor.
+
+## SENSOR DE TEMPERATURA
+El TMP36 es un sensor de temperatura analógico que se utiliza para medir la temperatura ambiente. Dependiendo de la temperatura que mida, este sensor devolverá una señal de voltaje que es proporcional a los grados Celsius.
+Cuanto mayor es la temperatura, mayor es la señal de voltaje generada por el sensor. El voltaje de salida puede ser interpretado para determinar la temperatura ambiente.
+-	opera en un rango de -40°C a +125°C.
+-	Produce una señal de voltaje analógica que puede ser directamente leída por un microcontrolador o convertida a una lectura digital.
+Aplicación al proyecto:
+	~~~ C (lenguaje en el que esta escrito)
+	void conversion_valores_grados()
+	{
+	  //Leo el sensor y convierto el valor analogico a grados centigrados.
+	  //con la funcion map.
+	  temperatura = analogRead(SENSOR);
+	  temperatura = map(temperatura, 20,358,-40,125);
+	}
+	
+	void alterar_display_segun_temperatura()
+	{
+ 	  //Con esta funcion capturo la temperatura y mientras sea menor a 0° o mayor a 100°
+          //en el display muestro encendido solo un segmento. Despues capturo de nuevo la temperatura
+ 	  //y pregunto si ya está entre 0° y 100°, si se cumple la condición rompo el blucle y el programa continua normalmente
+	  conversion_valores_grados();
+	  while(temperatura < 0 or temperatura > 100){
+	    formar_alerta();
+	    conversion_valores_grados();
+	    if (temperatura > 0 and temperatura < 100){
+	     break; 
+	    }
+	  }
+	    
+	}
+ 	~~~
+
 
 ## :octocat: Link al proyecto
 - [proyecto](https://www.tinkercad.com/things/dY4WhQ7JCwu-contador-de-0-a-99-con-display-7-segmentos-y-multiplexacion/editel?sharecode=UpPW-t2oktDQQsi74xRbyHPi4dNSa17naK7jZpLaioo)
