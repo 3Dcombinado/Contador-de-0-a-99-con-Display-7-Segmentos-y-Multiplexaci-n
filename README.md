@@ -9,8 +9,9 @@
 - Charadía Elías - 1B
 
 ## Descripción
-La funcion de este proyecto es la de un contador digital de 0 a 99, con dos display de 7 segmentos controlados por multiplexacion. Se utilizan 3 botones/pulsadores para controlar los números que se muestran en los displays. Con el primer boton se incrementa en uno los números (por cada presionado al boton) y con el segundo lo mismo pero decrementa los dígitos. Luego hay un tercer boton que su función es la de resetear los displays a cero, sin importar en que numero estaba ubicado.
-El último agregado es el componente switch, con el cual controlo si se van a mostrar los números primos o el contador.
+La funcion de este proyecto es la de un contador digital de 0 a 99, con dos display de 7 segmentos controlados por multiplexacion. Se utilizan 2 botones/pulsadores para controlar los números que se muestran en los displays. Con el primer boton se incrementa en uno los números (por cada presionado al boton) y con el segundo lo mismo pero decrementa los dígitos. 
+Hay un agregado que es el componente switch, con el cúal controlo si se van a mostrar los números primos o el contador.
+Por último se requirio sumarle dos sensores, uno de temperatura y otro de luz. A estos dos sensores se le dieron una función diferente.
 
 ## Función principal
 
@@ -58,7 +59,7 @@ void loop()
   
 }
 ~~~
-## MOTOR DE CORRIENT CONTINUA
+## MOTOR DE CORRIENTE CONTINUA
 Un motor de corriente continua, es un dispositivo electromecánico que convierte la energía eléctrica de corriente continua en movimiento mecánico. Son simples de usar y tienen un control de velocidad muy preciso.
 -  ¿Qué es la corriente continua?
 
@@ -110,6 +111,25 @@ Aplicación al proyecto:
 	    
 	}
  	~~~
+
+## FOTORESISTENCIA
+Una fotoresistencia es un componente electrónico que varía su resistencia eléctrica en función de la intensidad de la luz que exista. Su resistencia disminuye cuando se expone a una mayor cantidad de luz y aumenta cuando la luz disminuye.
+Para conocer la cantidad de luz que el sensor capta en cierto ambiente, se debe medir la tensión de salida del mismo. Para esto se hace uso de lo que se conoce como un divisor de tensión.
+-	Divisor de tensión
+
+es un circuito eléctrico que se utiliza para crear una salida de tensión más baja a partir de una fuente de voltaje más alta. El circuito tiene que poseer al menos dos resistencias conectadas en serie entre el voltaje de entrada y GND. 
+La tensión de salida se mide desde un punto intermedio entre las dos resistencias.
+
+![image](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/4ad8c760-af6f-48d9-90a4-35502a97f5a1) 
+
+Y la fórmula para calcular la tension de salida de un divisor de tensión es: 
+
+	Vout = Vin * (R2 / (R1 + R2))
+Para aplicar esto con una fotoresistencia, en el lugar de R1 va conectado dicho componente electrónico que actúa como una resistencia variable.	R2 tomará un valor general de 10K ohm.
+
+Una vez aplicado el divisor de tensión, esta tensón de salida puede ser leida en una entrada analógica y apartir de ahí tien un funcionamiente similar al sensor de temperatura de arriba.
+
+![image](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/01612552-e494-4d22-9cd3-60ec7f64cc93) Fotoresistencia.
 
 
 ## :octocat: Link al proyecto
