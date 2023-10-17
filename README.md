@@ -113,4 +113,4 @@ Aplicación al proyecto:
 
 
 ## :octocat: Link al proyecto
-- [proyecto](https://www.tinkercad.com/things/dY4WhQ7JCwu-contador-de-0-a-99-con-display-7-segmentos-y-multiplexacion/editel?sharecode=UpPW-t2oktDQQsi74xRbyHPi4dNSa17naK7jZpLaioo)
+- [proyecto](https://www.tinkercad.com/things/gcbX07VyaXh-proyecto-con-sensor-de-temperatura-y-de-luz/editel?sharecode=kYyD0mXTJHfeoiN6cfch_lQKyG4qspdPFST9Mr0FoF0)
