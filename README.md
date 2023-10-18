@@ -132,5 +132,52 @@ Una vez aplicado el divisor de tensión, esta tensón de salida puede ser leida 
 ![image](https://github.com/eliascharadia/Contador-de-0-a-99-con-Display-7-Segmentos-y-Multiplexaci-n/assets/89148679/01612552-e494-4d22-9cd3-60ec7f64cc93) Fotoresistencia.
 
 
+## Lógica para mostrar los números pares
+- Funciónes para calcular los numeros pares.
+  ~~~ C (lenguaje en el que esta escrito)
+	void verificar_par(int numero)
+	{
+	  //Esta funcion permite saber si el número es
+	  //par o impar devolviendo un booleano.
+	  //True = Es par ; False = no es par.
+	  if (numero % 2 == 0){
+	   estado = true; 
+	  }else{
+	    estado = false;
+	  }
+	}
+	
+	
+	void calcular_par(int numero)
+	{
+	  //Esta función sirve para encontrar un número par
+	  //si no lo hay y lo devuelve para en este proyecto 
+	  //mostrarlo en los displays.
+	  verificar_par(numero);//Verifico si el numero es par
+	  if (estado == true){
+	    cuenta = numero;//si es par solo lo muestro.
+	  }else{//si no es par, incremento en una unidad
+	    //y verifico si es par. Está encerrado en un bucle
+	    //para que no salga de ahi hasta que me encuentre 
+	    //un numero par
+	    if (subo_o_bajo == 1){
+	      while(estado == false){
+	        numero = numero + 1;
+	        calcular_par(numero);
+	      }
+	    }else{
+	      while(estado == false){
+	        numero = numero - 1;
+	        calcular_par(numero);
+	      }
+	    }
+	  }
+	}
+ 	~~~
+  Primero hay que saber si el número que se necesita mostrar en los displays es par o impar. Para eso sirve la función "verificar par", la cual recibe como parametro una variable de tipo entero
+  a la que se hace el procedimiento.
+  La función "calcular par" se puede decir que es la principal. El primer paso de esta funcion seria aplicar el tratamiento de la función anterior con el parametro que se le envio a esta nueva función.
+  Después de la verificación, se analiza si es par o impar. Si es impar se va a buscar el número mas proximo PAR y lo devuelve, si ya de por si es par no se somete a este procedimiento.
+ 
 ## :octocat: Link al proyecto
 - [proyecto](https://www.tinkercad.com/things/gcbX07VyaXh-proyecto-con-sensor-de-temperatura-y-de-luz/editel?sharecode=kYyD0mXTJHfeoiN6cfch_lQKyG4qspdPFST9Mr0FoF0)
