@@ -55,7 +55,7 @@ void loop()
   
   
   if (digitalRead(switchh) == HIGH){
-    calcular_primo(cuenta);
+    calcular_par(cuenta);
   }else{
     cuenta = cuenta;
   }
@@ -137,41 +137,48 @@ void encender_display_unidades()
 
 
 
-//////////////////// CALCULO DE NUMEROS PRIMOS //////////////////////////////
-void calcular_primo(int numero)
+//////////////////// CALCULO DE NUMEROS PARES //////////////////////////////
+void verificar_par(int numero)
 {
-  
-  //da un true si es primo y un false si es no primo
-  contador = 0;
-  for (int i = 1; i <= numero; ++i){
-  	if (numero % i == 0){
-    	contador += 1;
-    }
-  }
-    
-  if (contador > 2){//Si no es un primo incremento en el numero hasta encontrar
-    // un numero primo y despues mostrarlo.
+  //Esta funcion permite saber si el número es
+  //par o impar devolviendo un booleano.
+  //True = Es par ; False = no es par.
+  if (numero % 2 == 0){
+   estado = true; 
+  }else{
     estado = false;
-    //La variable subo_o_bajo es para saber que boton se presionó y si tiene
-    //que buscar un numero primo para arriba o para abajo. por eso hay dos while,
+  }
+}
+
+
+void calcular_par(int numero)
+{
+  //Esta función sirve para encontrar un número par
+  //si no lo hay y lo devuelve para en este proyecto 
+  //mostrarlo en los displays.
+  verificar_par(numero);//Verifico si el numero es par
+  if (estado == true){
+    cuenta = numero;//si es par solo lo muestro.
+  }else{//si no es par, incremento en una unidad
+    //y verifico si es par. Está encerrado en un bucle
+    //para que no salga de ahi hasta que me encuentre 
+    //un numero par
     if (subo_o_bajo == 1){
-      while (estado == false){
-          numero += 1;
-          calcular_primo(numero);
+      while(estado == false){
+        numero = numero + 1;
+        calcular_par(numero);
       }
     }else{
-      while (estado == false){
-          numero -= 1;
-          calcular_primo(numero);
+      while(estado == false){
+        numero = numero - 1;
+        calcular_par(numero);
       }
     }
-  }else{//Si es true igualo a cuenta al numero primo calculado
-    // para que lo muestre en el void principal.
-    estado = true;
-    cuenta = numero;
   }
-  
 }
+  
+
+
 
 //////////////////// MANEJO DEL SENSOR DE TEMPERATURA ////////////////////////
 
