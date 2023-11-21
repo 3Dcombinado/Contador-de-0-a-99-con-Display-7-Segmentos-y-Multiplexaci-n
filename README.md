@@ -180,4 +180,4 @@ Una vez aplicado el divisor de tensión, esta tensón de salida puede ser leida 
   Después de la verificación, se analiza si es par o impar. Si es impar se va a buscar el número mas proximo PAR y lo devuelve, si ya de por si es par no se somete a este procedimiento.
  
 ## :octocat: Link al proyecto
-- [proyecto](https://www.tinkercad.com/things/2hc4EQ8or8j-2do-parcial-1b-elias-charadia/editel?sharecode=tz5tiXZC_ijjYl3a7FwzIRzA8Sweb0hnFXltIoTnDr0)
+- [proyecto](https://www.tinkercad.com/things/gcbX07VyaXh-proyecto-con-sensor-de-temperatura-y-de-luz/editel?sharecode=kYyD0mXTJHfeoiN6cfch_lQKyG4qspdPFST9Mr0FoF0)
